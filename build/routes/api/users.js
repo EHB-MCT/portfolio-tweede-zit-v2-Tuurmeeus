@@ -3,9 +3,9 @@ const router = express.Router();
 const db = require('../../db')
 
 /**
- * GET: all students from students table
+ * GET all users saved in the database
  * 
- * @returns (object) - all students
+ * @returns {[Object]}                   An array of all users
  * 
  */
 router.get('/', function(req, resp) {
@@ -15,10 +15,10 @@ router.get('/', function(req, resp) {
 })
 
 /**
- * GET: a student by id
+ * GET a user object by their id from the database
  * 
- * @params (int) - id
- * @returns (object) - of student
+ * @param   {int}         id              A number for identifying each unique user
+ * @returns {[Object]}                    An array containing a user object
  */
 router.get('/:id', function(req, resp) {
     db('users').where({id: req.params.id}).select().then(function(data) {
@@ -29,8 +29,12 @@ router.get('/:id', function(req, resp) {
 /**
  * POST: student to student table
  * 
- * @param (object) - of student
- * @returns (object) - added student
+ * @param   {Object}       object       An object or an array of objects containing variables for creating a user
+ * @param   {Object}       object.id    A number for identifying each unique user
+ * @param   {Object}       object.name  A string for the last name of a user
+ * @param   {Object}       object.fname A string for the first name of a user
+ * @param   {Object}       object.role  A string for the designated role of a user
+ * @returns {Object}                    Returns an object of the created user
  */
 router.post('/', function (req, res) {
     db.insert(req.body).returning('*').into('users').then(function(data) {
@@ -39,12 +43,12 @@ router.post('/', function (req, res) {
 });
 
 /**
- * PUT: an existing student
+ * PATCH: an existing user
  * 
- * @param (int) - id
- * @returns (object) - updated student
+ * @param   {int}         id              A number for identifying each unique user
+ * @returns {[Object]}                    An array containing the created user
  */
-router.put('/:id', function(req, res) {
+router.patch('/:id', function(req, res) {
     db('users').where({ id: req.params.id}).update(req.body).returning('*').then(function(data) {
         res.send(data);
     });
@@ -54,8 +58,8 @@ router.put('/:id', function(req, res) {
 /**
  * DELETE: an existing student
  * 
- * @param (int) - id
- * @returns (object) - deleted student
+ * @param   {int}         id              A number for identifying each unique user
+ * @returns {[Object]}                    An array containing the deleted user
  */
 router.delete('/:id', function(req, res) {
     db('users').where({id: req.params.id}).del().then(function() {
