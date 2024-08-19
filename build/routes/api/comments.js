@@ -10,7 +10,7 @@ const db = require('../../db')
  * @returns {[Object]}                    An array containing question objects
  */
 router.get('/:id', function(req, resp) {
-    db('comments').where({thread_id: req.params.thread_id}).select().then(function(data) {
+    db('comments').where({comment_id: req.params.id}).select().then(function(data) {
         resp.send(data);
     });
 });
@@ -38,7 +38,7 @@ router.post('/', function (req, res) {
  * @returns {[Object]}                    An array containing the created comment
  */
 router.patch('/:id', function(req, res) {
-    db('comments').where({ id: req.params.id}).update(req.body).returning('*').then(function(data) {
+    db('comments').where({ comment_id: req.params.id}).update(req.body).returning('*').then(function(data) {
         res.send(data);
     });
     
@@ -52,7 +52,7 @@ router.patch('/:id', function(req, res) {
  */
 
 router.put('/:id', function(req, res){
-    db('comments').where({id: req.params.id}).update({
+    db('comments').where({comment_id: req.params.id}).update({
         title: req.body.content || null
     }).returning('*').then(function(data){
         res.send(data);
@@ -66,7 +66,7 @@ router.put('/:id', function(req, res){
  * @returns {[Object]}                    An array containing the deleted comment
  */
 router.delete('/:id', function(req, res) {
-    db('comments').where({id: req.params.id}).del().then(function() {
+    db('comments').where({comment_id: req.params.id}).del().then(function() {
         res.json({sucess: true});
     });
 });
