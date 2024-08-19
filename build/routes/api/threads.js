@@ -9,7 +9,7 @@ const db = require('../../db')
  * 
  */
 router.get('/', function(req, resp) {
-    db.select().from('users').then(function(data) {
+    db.select().from('threads').then(function(data) {
         resp.send(data);
     });
 })
@@ -21,7 +21,7 @@ router.get('/', function(req, resp) {
  * @returns {[Object]}                    An array containing a thread object
  */
 router.get('/:id', function(req, resp) {
-    db('users').where({id: req.params.id}).select().then(function(data) {
+    db('threads').where({id: req.params.id}).select().then(function(data) {
         resp.send(data);
     });
 });
@@ -37,7 +37,7 @@ router.get('/:id', function(req, resp) {
  * @returns {Object}                    Returns an object of the created user
  */
 router.post('/', function (req, res) {
-    db.insert(req.body).returning('*').into('users').then(function(data) {
+    db.insert(req.body).returning('*').into('threads').then(function(data) {
         res.send(data);
     })
 });
@@ -50,7 +50,7 @@ router.post('/', function (req, res) {
  * @returns {[Object]}                    An array containing the deleted thread
  */
 router.delete('/:id', function(req, res) {
-    db('users').where({id: req.params.id}).del().then(function() {
+    db('threads').where({id: req.params.id}).del().then(function() {
         res.json({sucess: true});
     });
 });
