@@ -10,5 +10,5 @@ app.use(bodyParser.urlencoded({
 }));
 app.use('/api', apiRoute);
 
-
-app.listen('3000');
+const port = process.env.PORT || 3000;
+app.listen(port, () => `App listening on port: htttp://localhost:${port}`);
