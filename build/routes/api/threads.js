@@ -17,11 +17,11 @@ router.get('/', function(req, resp) {
 /**
  * GET a thread object by their id from the database
  * 
- * @param   {int}         id              A number for identifying each unique thread
+ * @param   {int}         thread_id       A number for identifying each unique thread
  * @returns {[Object]}                    An array containing a thread object
  */
 router.get('/:id', function(req, resp) {
-    db('threads').where({id: req.params.id}).select().then(function(data) {
+    db('threads').where({thread_id: req.params.id}).select().then(function(data) {
         resp.send(data);
     });
 });
@@ -29,10 +29,9 @@ router.get('/:id', function(req, resp) {
 /**
  * POST: create a new thread
  * 
- * @param   {Object}       object       An object or an array of objects containing variables for creating a new thread
- * @param   {Object}       object.id    A number for identifying each unique thread
- * @param   {Object}       object.user_id  A Foreign key(INT) for identifying the user that created the thread
- * @param   {Object}       object.isResolved A boolean showing the status of the thread
+ * @param   {Object}       object              An object or an array of objects containing variables for creating a new thread
+ * @param   {Object}       object.user_id      A Foreign key(INT) for identifying the user that created the thread
+ * @param   {Object}       object.isResolved   A boolean showing the status of the thread
  * 
  * @returns {Object}                    Returns an object of the created user
  */
@@ -46,11 +45,11 @@ router.post('/', function (req, res) {
 /**
  * DELETE: an existing thread
  * 
- * @param   {int}         id              A number for identifying each unique thread
- * @returns {[Object]}                    An array containing the deleted thread
+ * @param   {int}         thread_id       A number for identifying each unique thread
+ * @returns {[Object]}                    A boolean defining the succes/failure of the DELETE request
  */
 router.delete('/:id', function(req, res) {
-    db('threads').where({id: req.params.id}).del().then(function() {
+    db('threads').where({thread_id: req.params.id}).del().then(function() {
         res.json({sucess: true});
     });
 });

@@ -10,7 +10,7 @@ const db = require('../../db')
  * @returns {[Object]}                    An array containing a question object
  */
 router.get('/:id', function(req, resp) {
-    db('questions').where({id: req.params.id}).select().then(function(data) {
+    db('questions').where({question_id: req.params.id}).select().then(function(data) {
         resp.send(data);
     });
 });
@@ -19,7 +19,7 @@ router.get('/:id', function(req, resp) {
  * POST student to questions table
  * 
  * @param   {Object}       object              An object or an array of objects containing variables for creating a question
- * @param   {Object}       object._id          A number for identifying each unique question
+ * @param   {Object}       object.title        The text containing the question itself
  * @param   {Object}       object.thread_id    A Foreign key (int) for identifying the parent class
  * @returns {Object}                           Returns an object of the created question
  */
@@ -36,7 +36,7 @@ router.post('/', function (req, res) {
  * @returns {[Object]}                    An array containing the updated question
  */
 router.patch('/:id', function(req, res) {
-    db('questions').where({ id: req.params.id}).update(req.body).returning('*').then(function(data) {
+    db('questions').where({ question_id: req.params.id}).update(req.body).returning('*').then(function(data) {
         res.send(data);
     });
     
@@ -50,7 +50,7 @@ router.patch('/:id', function(req, res) {
  */
 
 router.put('/:id', function(req, res){
-    db('questions').where({id: req.params.id}).update({
+    db('questions').where({question_id: req.params.id}).update({
         title: req.body.title || null
     }).returning('*').then(function(data){
         res.send(data);
