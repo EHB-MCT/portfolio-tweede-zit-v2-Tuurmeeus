@@ -33,6 +33,23 @@ $  docker-compose up --build
 ### Usage
 The APi works on the principle that you first make a user account. This user account has all the info you would inspect within it's object apart from a role that defines if you are a student or teacher. Teachers having the power to moderate and highlight correct answers. Once you have an account you can create a thread. This thread can be filled with the question you are dying to know the answer to. From here on out other people can comment on your thread to help you find and answer. Once the question is answered you can mark the thread as resolved so other people know that a correct answer can be found. This answer can be highlighted to be permanently displayed right underneath the question. 
 
+#### Endpoints
+```http
+  GET /users /threads /questions / comments
+```
+```http
+  GET /users/${id} /threads/${id} /questions/${id} /comments/${id}
+```
+```http
+  POST /api/users/ /threads /questions /comments
+```
+```http
+  PATCH /api/users/${id} /threads/${id} /questions/${id} /comments/${id}
+```
+```http
+  DEL /api/users/${id} /threads /questions / comments
+```
+
 
 ## References
 
