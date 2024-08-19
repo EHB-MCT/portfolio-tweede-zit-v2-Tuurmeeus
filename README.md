@@ -47,7 +47,7 @@ The APi works on the principle that you first make a user account. This user acc
   PATCH /api/users/${id} /threads/${id} /questions/${id} /comments/${id}
 ```
 ```http
-  DEL /api/users/${id} /threads /questions / comments
+  DEL /api/users/${id} /threads/${id} /questions/${id} / comments/${id}
 ```
 
 
